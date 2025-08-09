@@ -5,57 +5,59 @@
 //  Created by Mohamed Shadhaan on 07/08/2025.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+  @Environment(\.modelContext) private var modelContext
+  @Query(animation: .default) private var items: [Item]
 
-    var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
+  @State private var searchQuery = ""
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+  var body: some View {
+    NavigationStack {
+      HomeList()
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button(action: addItem) {
+              Label("Profile", systemImage: "person")
             }
+          }
         }
+        .toolbar {
+          DefaultToolbarItem(kind: .search, placement: .bottomBar)
+          ToolbarSpacer(.flexible, placement: .bottomBar)
+          ToolbarItem(placement: .bottomBar) {
+            Button(action: addItem) {
+              Label("Filter", systemImage: "line.3.horizontal.decrease")
+            }
+          }
+          ToolbarItem(placement: .bottomBar) {
+            Button(action: addItem) {
+              Label("Add Item", systemImage: "plus")
+            }
+            .buttonStyle(.glassProminent)
+          }
+        }
+        .searchable(text: $searchQuery)
+      //        .searchToolbarBehavior(.minimize)
     }
+  }
+
+  private func addItem() {
+    let newItem = Item(timestamp: .now)
+    modelContext.insert(newItem)
+  }
+
+  private func deleteItems(offsets: IndexSet) {
+    for index in offsets {
+      modelContext.delete(items[index])
+    }
+  }
 }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+  ContentView()
+    .modelContainer(for: Item.self, inMemory: true)
+    .fontDesign(.rounded)
 }
