@@ -27,7 +27,7 @@ struct FairplayApp: App {
 
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      HomeView()
         .fontDesign(.rounded)
     }
     .modelContainer(sharedModelContainer)

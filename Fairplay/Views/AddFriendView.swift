@@ -4,7 +4,17 @@ struct AddFriendView: View {
   @Environment(\.dismiss) var dismiss
 
   var body: some View {
-    Text("Add Friend")
+    NavigationView {
+      Text("Add Friend")
+        .navigationTitle("Add Friend")
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button("Close", systemImage: "xmark") {
+              dismiss()
+            }
+          }
+        }
+    }
   }
 }
 

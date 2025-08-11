@@ -9,19 +9,22 @@ struct ProfileView: View {
       VStack {
         Text("Profile")
           .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem {
+              Button("Add Friend", systemImage: "person.badge.plus") {
+                friendsIsPresented.toggle()
+              }
+            }
+
+            ToolbarItem {
               Button("Close", systemImage: "xmark") {
                 dismiss()
               }
             }
-            ToolbarItem(placement: .topBarLeading) {
-              Button("Add Friend", systemImage: "person.badge.plus") {
-              }
-            }
           }
-          .navigationDestination(isPresented: $friendsIsPresented) {
-            AddFriendView()
-          }
+      }
+      .navigationTitle("Profile")
+      .sheet(isPresented: $friendsIsPresented) {
+        AddFriendView()
       }
     }
   }
