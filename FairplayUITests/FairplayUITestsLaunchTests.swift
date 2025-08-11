@@ -1,14 +1,6 @@
-//
-//  FairplayUITestsLaunchTests.swift
-//  FairplayUITests
-//
-//  Created by Mohamed Shadhaan on 07/08/2025.
-//
-
 import XCTest
 
 final class FairplayUITestsLaunchTests: XCTestCase {
-
   override class var runsForEachTargetApplicationUIConfiguration: Bool {
     true
   }

@@ -1,50 +1,47 @@
-//
-//  HomeList.swift
-//  Fairplay
-//
-//  Created by Mohamed Shadhaan on 08/08/2025.
-//
-
 import SwiftData
 import SwiftUI
 
-struct HomeList: View {
+struct HomeListView: View {
   @Environment(\.modelContext) private var modelContext
-  @Query private var items: [Item]
+  @Query private var users: [User]
 
   @State private var activeListExpanded = true
   @State private var hiddenListExpanded = true
 
   var body: some View {
     List {
+      VStack {
+        Text("$250.00")
+          .font(.largeTitle)
+          .fontWeight(.semibold)
+
+      }
+      .listRowBackground(Color.clear)
+
       Section("Active", isExpanded: $activeListExpanded) {
-        ForEach(items) { item in
+        ForEach(users) { item in
           NavigationLink {
-            Text(
-              "Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))"
-            )
+            Text(item.name)
           } label: {
-            Text(
-              item.timestamp,
-              format: Date.FormatStyle(date: .numeric, time: .standard)
-            )
+            Text(item.name)
           }
         }
         .onDelete(perform: deleteItems)
       }
 
-      Section("Hidden", isExpanded: $hiddenListExpanded) {
+      Section("Settled", isExpanded: $hiddenListExpanded) {
 
       }
     }
     .headerProminence(.increased)
     .listStyle(.sidebar)
+    .scrollContentBackground(.hidden)
   }
 
   private func deleteItems(offsets: IndexSet) {
     withAnimation {
       for index in offsets {
-        modelContext.delete(items[index])
+        modelContext.delete(users[index])
       }
     }
   }

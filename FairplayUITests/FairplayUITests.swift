@@ -1,14 +1,6 @@
-//
-//  FairplayUITests.swift
-//  FairplayUITests
-//
-//  Created by Mohamed Shadhaan on 07/08/2025.
-//
-
 import XCTest
 
 final class FairplayUITests: XCTestCase {
-
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
 

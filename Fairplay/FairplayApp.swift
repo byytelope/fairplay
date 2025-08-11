@@ -1,10 +1,3 @@
-//
-//  FairplayApp.swift
-//  Fairplay
-//
-//  Created by Mohamed Shadhaan on 07/08/2025.
-//
-
 import SwiftData
 import SwiftUI
 
@@ -12,7 +5,10 @@ import SwiftUI
 struct FairplayApp: App {
   var sharedModelContainer: ModelContainer = {
     let schema = Schema([
-      Item.self
+      Expense.self,
+      ExpenseGroup.self,
+      User.self,
+      Split.self,
     ])
     let modelConfiguration = ModelConfiguration(
       schema: schema,

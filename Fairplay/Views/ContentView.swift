@@ -1,37 +1,36 @@
-//
-//  ContentView.swift
-//  Fairplay
-//
-//  Created by Mohamed Shadhaan on 07/08/2025.
-//
-
 import SwiftData
 import SwiftUI
 
 struct ContentView: View {
   @Environment(\.modelContext) private var modelContext
-  @Query(animation: .default) private var items: [Item]
+  @Query(animation: .default) private var users: [User]
 
   @State private var searchQuery = ""
+  @State private var showingSheet = false
 
   var body: some View {
     NavigationStack {
-      HomeList()
+      HomeListView()
+        .background(Color.background)
         .toolbar {
           ToolbarItem(placement: .topBarTrailing) {
-            Button(action: addItem) {
+            Button(action: { showingSheet.toggle() }) {
               Label("Profile", systemImage: "person")
+            }
+            .sheet(isPresented: $showingSheet) {
+              ProfileView()
             }
           }
         }
         .toolbar {
-          DefaultToolbarItem(kind: .search, placement: .bottomBar)
-          ToolbarSpacer(.flexible, placement: .bottomBar)
           ToolbarItem(placement: .bottomBar) {
-            Button(action: addItem) {
+            Button(action: {}) {
               Label("Filter", systemImage: "line.3.horizontal.decrease")
             }
           }
+          ToolbarSpacer(.flexible, placement: .bottomBar)
+          DefaultToolbarItem(kind: .search, placement: .bottomBar)
+          ToolbarSpacer(.flexible, placement: .bottomBar)
           ToolbarItem(placement: .bottomBar) {
             Button(action: addItem) {
               Label("Add Item", systemImage: "plus")
@@ -40,24 +39,23 @@ struct ContentView: View {
           }
         }
         .searchable(text: $searchQuery)
-      //        .searchToolbarBehavior(.minimize)
     }
   }
 
   private func addItem() {
-    let newItem = Item(timestamp: .now)
+    let newItem = User(name: "Hello", email: "hello@gmail.com")
     modelContext.insert(newItem)
   }
 
   private func deleteItems(offsets: IndexSet) {
     for index in offsets {
-      modelContext.delete(items[index])
+      modelContext.delete(users[index])
     }
   }
 }
 
 #Preview {
   ContentView()
-    .modelContainer(for: Item.self, inMemory: true)
+    .modelContainer(for: User.self, inMemory: true)
     .fontDesign(.rounded)
 }
