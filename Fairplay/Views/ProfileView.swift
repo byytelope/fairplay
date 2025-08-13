@@ -2,29 +2,37 @@ import SwiftUI
 
 struct ProfileView: View {
   @Environment(\.dismiss) var dismiss
-  @State private var friendsIsPresented = false
+  @Environment(AuthService.self) var authService
 
   var body: some View {
-    NavigationStack {
-      VStack {
+    NavigationView {
+      Form {
         Text("Profile")
-          .toolbar {
-            ToolbarItem {
-              Button("Add Friend", systemImage: "person.badge.plus") {
-                friendsIsPresented.toggle()
-              }
-            }
-
-            ToolbarItem {
-              Button("Close", systemImage: "xmark") {
-                dismiss()
+      }
+      .scrollContentBackground(.hidden)
+      .background(Color.background)
+      .navigationTitle("Profile")
+      .toolbar {
+        ToolbarItem {
+          Button(
+            "Sign Out",
+            systemImage: "rectangle.portrait.and.arrow.forward"
+          ) {
+            Task {
+              do {
+                try await authService.signOut()
+              } catch {
+                print("sign out failed:", error)
               }
             }
           }
-      }
-      .navigationTitle("Profile")
-      .sheet(isPresented: $friendsIsPresented) {
-        AddFriendView()
+        }
+
+        ToolbarItem {
+          Button("Close", systemImage: "xmark") {
+            dismiss()
+          }
+        }
       }
     }
   }
@@ -32,4 +40,5 @@ struct ProfileView: View {
 
 #Preview {
   ProfileView()
+    .environment(AuthService())
 }

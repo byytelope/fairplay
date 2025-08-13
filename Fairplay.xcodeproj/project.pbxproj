@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6B3FB75F2E4CE282007622D2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3FB75E2E4CE282007622D2 /* GoogleSignIn */; };
+		6B3FB7612E4CE282007622D2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3FB7602E4CE282007622D2 /* GoogleSignInSwift */; };
+		6B9823962E4CBB120064E446 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 6B9823952E4CBB120064E446 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		6BE686D82E44ECDD002A18EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +35,22 @@
 		6BE686E12E44ECDD002A18EF /* FairplayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FairplayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6B3FB7632E4D23E2007622D2 /* Exceptions for "Fairplay" folder in "Fairplay" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 6BE686C72E44ECDC002A18EF /* Fairplay */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6BE686CA2E44ECDC002A18EF /* Fairplay */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				6B3FB7632E4D23E2007622D2 /* Exceptions for "Fairplay" folder in "Fairplay" target */,
+			);
 			path = Fairplay;
 			sourceTree = "<group>";
 		};
@@ -52,6 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3FB7612E4CE282007622D2 /* GoogleSignInSwift in Frameworks */,
+				6B9823962E4CBB120064E446 /* Supabase in Frameworks */,
+				6B3FB75F2E4CE282007622D2 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +134,9 @@
 			);
 			name = Fairplay;
 			packageProductDependencies = (
+				6B9823952E4CBB120064E446 /* Supabase */,
+				6B3FB75E2E4CE282007622D2 /* GoogleSignIn */,
+				6B3FB7602E4CE282007622D2 /* GoogleSignInSwift */,
 			);
 			productName = Fairplay;
 			productReference = 6BE686C82E44ECDC002A18EF /* Fairplay.app */;
@@ -196,6 +221,8 @@
 			mainGroup = 6BE686BF2E44ECDC002A18EF;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				6B9823942E4CBB120064E446 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				6B3FB75D2E4CE282007622D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6BE686C92E44ECDC002A18EF /* Products */;
@@ -402,6 +429,7 @@
 				DEVELOPMENT_TEAM = 96B73ZYMGT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Fairplay/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Fairplay;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -437,6 +465,7 @@
 				DEVELOPMENT_TEAM = 96B73ZYMGT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Fairplay/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Fairplay;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -586,6 +615,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6B3FB75D2E4CE282007622D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		6B9823942E4CBB120064E446 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B3FB75E2E4CE282007622D2 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3FB75D2E4CE282007622D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		6B3FB7602E4CE282007622D2 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3FB75D2E4CE282007622D2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		6B9823952E4CBB120064E446 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B9823942E4CBB120064E446 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6BE686C02E44ECDC002A18EF /* Project object */;
 }

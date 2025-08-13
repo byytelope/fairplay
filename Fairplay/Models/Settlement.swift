@@ -1,9 +1,9 @@
 import Foundation
 
-struct Split: Codable {
+struct Settlement: Codable {
   let id: UUID
   let createdAt: Date
-  let expense: Expense
-  let user: User
+  let payer: User
+  let receiver: User
   let amount: Decimal
 }

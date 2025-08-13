@@ -1,9 +1,22 @@
 import SwiftUI
 
 struct AddExpenseView: View {
+  @Environment(\.dismiss) var dismiss
+
   var body: some View {
-    Text("Add Expense")
-      .navigationTitle("Add Friend")
+    NavigationView {
+      Text("Add Expense")
+        .navigationTitle("Add Expense")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button("Close", systemImage: "xmark") {
+              dismiss()
+            }
+          }
+        }
+    }
+    .presentationDetents([.medium])
   }
 }
 

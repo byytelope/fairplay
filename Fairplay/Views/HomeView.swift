@@ -2,13 +2,12 @@ import SwiftData
 import SwiftUI
 
 struct HomeView: View {
-  @Environment(\.modelContext) private var modelContext
-  @Query(animation: .default) private var users: [User]
-
   @State private var searchQuery = ""
   @State private var amount = 250.00
   @State private var owing = false
-  @State private var showingSheet = false
+  @State private var presentProfile = false
+  @State private var presentAddFriend = false
+  @State private var presentAddExpense = false
   @State private var activeListExpanded = true
   @State private var hiddenListExpanded = true
 
@@ -16,15 +15,15 @@ struct HomeView: View {
     NavigationStack {
       List {
         Section("Active", isExpanded: $activeListExpanded) {
-          ForEach(users) { item in
-            NavigationLink {
-              Text(item.name)
-                .navigationTitle(item.name)
-            } label: {
-              Text(item.name)
-            }
-          }
-          .onDelete(perform: deleteItems)
+          //          ForEach(users) { item in
+          //            NavigationLink {
+          //              Text(item.name)
+          //                .navigationTitle(item.name)
+          //            } label: {
+          //              Text(item.name)
+          //            }
+          //          }
+          //          .onDelete(perform: deleteItems)
         }
 
         Section("Settled", isExpanded: $hiddenListExpanded) {
@@ -51,7 +50,7 @@ struct HomeView: View {
       }
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
-          Button(action: { showingSheet.toggle() }) {
+          Button(action: { presentProfile.toggle() }) {
             Label("Profile", systemImage: "person")
           }
         }
@@ -62,44 +61,39 @@ struct HomeView: View {
             Label("Filter", systemImage: "line.3.horizontal.decrease")
           }
         }
+
         ToolbarSpacer(.flexible, placement: .bottomBar)
         DefaultToolbarItem(kind: .search, placement: .bottomBar)
         ToolbarSpacer(.flexible, placement: .bottomBar)
+
         ToolbarItem(placement: .bottomBar) {
           Menu("Add", systemImage: "plus") {
-            Button("Add Item") {
-              addItem()
+            Button("Add Expense", systemImage: "dollarsign") {
+              presentAddExpense.toggle()
             }
 
-            Button("Add 10 Items") {
-              for _ in 0..<10 {
-                addItem()
-              }
+            Button("Add Friend", systemImage: "person.badge.plus") {
+              presentAddFriend.toggle()
             }
           }
         }
       }
+      .fontDesign(.rounded)
       .searchable(text: $searchQuery)
-      .sheet(isPresented: $showingSheet) {
+      .sheet(isPresented: $presentProfile) {
         ProfileView()
       }
-    }
-  }
-
-  private func addItem() {
-    let newItem = User(name: "Hello", email: "hello@gmail.com")
-    modelContext.insert(newItem)
-  }
-
-  private func deleteItems(offsets: IndexSet) {
-    for index in offsets {
-      modelContext.delete(users[index])
+      .sheet(isPresented: $presentAddExpense) {
+        AddExpenseView()
+      }
+      .sheet(isPresented: $presentAddFriend) {
+        AddFriendView()
+      }
     }
   }
 }
 
 #Preview {
   HomeView()
-    .modelContainer(for: User.self, inMemory: true)
-    .fontDesign(.rounded)
+    .environment(AuthService())
 }
